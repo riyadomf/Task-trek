@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 const App = () => {
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState(localStorage.getItem("todos")? JSON.parse(localStorage.getItem("todos")) : []);
   const [selectedTodo, setSelectedTodo] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [nextId, setNextId] = useState(1);
@@ -33,6 +33,8 @@ const App = () => {
       message: 'Todo added successfully!'
     });
     setShowModal(false);
+
+    localStorage.setItem("todos", JSON.stringify([...todos]))
   };
 
   const handleDeleteTodo = id => {
@@ -41,6 +43,8 @@ const App = () => {
       type: 'danger',
       message: 'Todo deleted successfully!'
     });
+
+    localStorage.setItem("todos", JSON.stringify([...todos]))
   };
 
   const handleEditTodo = editedTodo => {
@@ -53,6 +57,8 @@ const App = () => {
     });
     setShowModal(false);
     setSelectedTodo(null);
+
+    localStorage.setItem("todos", JSON.stringify([...todos]))
   };
 
   const handleDoneTodo = id => {
@@ -65,6 +71,8 @@ const App = () => {
       type: 'success',
       message: 'Todo status updated'
     }));
+
+    localStorage.setItem("todos", JSON.stringify([...todos]))
   };
 
   const handleEditButtonClick = id => {
