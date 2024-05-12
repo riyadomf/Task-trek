@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Alert, Container, Row, Col } from 'react-bootstrap';
 import TodoList from './components/TodoList';
 import TodoForm from './components/TodoForm';
@@ -13,6 +13,10 @@ const App = () => {
   const [nextId, setNextId] = useState(1);
   const [alert, setAlert] = useState(null);
 
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
+
   const handleNewTodo = () => {
     setSelectedTodo(null);
     setShowModal(true);
@@ -26,15 +30,13 @@ const App = () => {
   const handleAddTodo = newTodo => {
     const todoWithId = { ...newTodo, id: nextId};
 
-    setNextId(nextId => nextId + 1)
+    setNextId(prevId => prevId + 1)
     setTodos(prevTodos => [...prevTodos, todoWithId]);
     setAlert({
       type: 'success',
       message: 'Todo added successfully!'
     });
     setShowModal(false);
-
-    localStorage.setItem("todos", JSON.stringify([...todos]))
   };
 
   const handleDeleteTodo = id => {
@@ -44,7 +46,6 @@ const App = () => {
       message: 'Todo deleted successfully!'
     });
 
-    localStorage.setItem("todos", JSON.stringify([...todos]))
   };
 
   const handleEditTodo = editedTodo => {
@@ -58,7 +59,6 @@ const App = () => {
     setShowModal(false);
     setSelectedTodo(null);
 
-    localStorage.setItem("todos", JSON.stringify([...todos]))
   };
 
   const handleDoneTodo = id => {
@@ -72,7 +72,6 @@ const App = () => {
       message: 'Todo status updated'
     }));
 
-    localStorage.setItem("todos", JSON.stringify([...todos]))
   };
 
   const handleEditButtonClick = id => {
