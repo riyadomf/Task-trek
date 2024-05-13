@@ -1,13 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { Button, Alert, Container, Row, Col } from 'react-bootstrap';
-import TodoList from './components/TodoList';
-import TodoForm from './components/TodoForm';
+import React, { useState, useEffect } from "react";
+import { Button, Alert, Container, Row, Col, Navbar } from "react-bootstrap";
+import { BsPlus } from "react-icons/bs";
+import TodoList from "./components/TodoList";
+import TodoForm from "./components/TodoForm";
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
 
 const App = () => {
-  const [todos, setTodos] = useState(localStorage.getItem("todos")? JSON.parse(localStorage.getItem("todos")) : []);
+  const [todos, setTodos] = useState(
+    localStorage.getItem("todos")
+      ? JSON.parse(localStorage.getItem("todos"))
+      : []
+  );
   const [selectedTodo, setSelectedTodo] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [nextId, setNextId] = useState(1);
@@ -27,87 +32,96 @@ const App = () => {
     setSelectedTodo(null);
   };
 
-  const handleAddTodo = newTodo => {
-    const todoWithId = { ...newTodo, id: nextId};
+  const handleAddTodo = (newTodo) => {
+    const todoWithId = { ...newTodo, id: nextId };
 
-    setNextId(prevId => prevId + 1)
-    setTodos(prevTodos => [...prevTodos, todoWithId]);
+    setNextId((prevId) => prevId + 1);
+    setTodos((prevTodos) => [...prevTodos, todoWithId]);
     setAlert({
-      type: 'success',
-      message: 'Todo added successfully!'
+      type: "success",
+      message: "Todo added successfully!",
     });
     setShowModal(false);
   };
 
-  const handleDeleteTodo = id => {
-    setTodos(prevTodos => prevTodos.filter(todo => todo.id !== id));
+  const handleDeleteTodo = (id) => {
+    setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
     setAlert({
-      type: 'danger',
-      message: 'Todo deleted successfully!'
+      type: "danger",
+      message: "Todo deleted successfully!",
     });
-
   };
 
-  const handleEditTodo = editedTodo => {
-    setTodos(prevTodos =>
-      prevTodos.map(todo => (todo.id === editedTodo.id ? editedTodo : todo))
+  const handleEditTodo = (editedTodo) => {
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) => (todo.id === editedTodo.id ? editedTodo : todo))
     );
     setAlert({
-      type: 'success',
-      message: 'Todo updated successfully!'
+      type: "success",
+      message: "Todo updated successfully!",
     });
     setShowModal(false);
     setSelectedTodo(null);
-
   };
 
-  const handleDoneTodo = id => {
-    setTodos(prevTodos =>
-      prevTodos.map(todo =>
+  const handleDoneTodo = (id) => {
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) =>
         todo.id === id ? { ...todo, isCompleted: !todo.isCompleted } : todo
       )
     );
-    setAlert(({
-      type: 'success',
-      message: 'Todo status updated'
-    }));
-
+    setAlert({
+      type: "success",
+      message: "Todo status updated",
+    });
   };
 
-  const handleEditButtonClick = id => {
-    const todoToEdit = todos.find(todo => todo.id === id);
+  const handleEditButtonClick = (id) => {
+    const todoToEdit = todos.find((todo) => todo.id === id);
     setSelectedTodo(todoToEdit);
     setShowModal(true);
   };
 
   return (
-    <Container className="homepage">
-      <Row>
-        <Col>
-          <Button variant="primary" onClick={handleNewTodo}>
-            New Todo
+    <>
+      <Navbar bg="dark" variant="dark">
+        <Navbar.Brand href="#home">Task Trek</Navbar.Brand>
+      </Navbar>
+      <Container className="homepage">
+        <Row>
+          <Col>
+            {alert && <Alert variant={alert.type}>{alert.message}</Alert>}
+          </Col>
+        </Row>
+        <Row className="justify-content-end mb-3 mr-2">
+          <Button
+            variant="primary"
+            className="add-todo-btn mx-3"
+            onClick={handleNewTodo}
+          >
+            <BsPlus />
           </Button>
-          {alert && <Alert variant={alert.type}>{alert.message}</Alert>}
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <TodoList
-            todos={todos}
-            onDelete={handleDeleteTodo}
-            onEdit={handleEditButtonClick}
-            onDone={handleDoneTodo}
-          />
-        </Col>
-      </Row>
-      <TodoForm
-        show={showModal}
-        onHide={handleCloseModal}
-        onSubmit={handleAddTodo}
-        todo={selectedTodo}
-        onEdit={handleEditTodo}
-      />
-    </Container>
+        </Row>
+        <Row>
+          <Col>
+            <TodoList
+              todos={todos}
+              onDelete={handleDeleteTodo}
+              onEdit={handleEditButtonClick}
+              onDone={handleDoneTodo}
+            />
+          </Col>
+        </Row>
+
+        <TodoForm
+          show={showModal}
+          onHide={handleCloseModal}
+          onSubmit={handleAddTodo}
+          todo={selectedTodo}
+          onEdit={handleEditTodo}
+        />
+      </Container>
+    </>
   );
 };
 
