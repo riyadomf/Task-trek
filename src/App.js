@@ -93,15 +93,6 @@ const App = () => {
             {alert && <Alert variant={alert.type}>{alert.message}</Alert>}
           </Col>
         </Row>
-        <Row className="justify-content-end mb-3 mr-2">
-          <Button
-            variant="primary"
-            className="add-todo-btn mx-3"
-            onClick={handleNewTodo}
-          >
-            <BsPlus />
-          </Button>
-        </Row>
         <Row>
           <Col>
             <TodoList
@@ -112,7 +103,15 @@ const App = () => {
             />
           </Col>
         </Row>
-
+        <Row>
+          <Button
+            variant="primary"
+            className="add-todo-btn mx-3"
+            onClick={handleNewTodo}
+          >
+            <BsPlus />
+          </Button>
+        </Row>
         <TodoForm
           show={showModal}
           onHide={handleCloseModal}

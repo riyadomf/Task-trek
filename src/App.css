@@ -178,14 +178,20 @@
 
 /* Homepage */
 
-.add-todo-btn {
+ .add-todo-btn {
+  position: fixed;
+  bottom: 60px; /* Adjust the distance from the bottom as needed */
+  left: 88%;
+  transform: translateX(-50%);
   border-radius: 50%;
   width: 50px;
   height: 50px;
   font-size: 24px;
   background-color: #06203d; /* Ambient color */
   color: white; /* Text color */
+  z-index: 999; /* Ensure it appears above other elements */
 }
+
 
 .navbar-brand {
   font-family: "Arial", sans-serif; /* Example font family */
@@ -193,5 +199,5 @@
   font-weight: bold; /* Example font weight */
   color: #c0c2cf; /* Example text color */
   text-transform: uppercase; /* Example text transform */
-  margin-left: 100px; /* Adjust the value as needed */
+  margin-left: 200px; /* Adjust the value as needed */
 }
