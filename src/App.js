@@ -8,14 +8,50 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 const App = () => {
+  const seedData = [
+    {
+      "title": "Buy Green Tea",
+      "description": "Buy green tea from Shwapno",
+      "dueDate": "2024-05-25",
+      "priority": "Low",
+      "isCompleted": false,
+      "id": 1
+    },
+    {
+      "title": "Buy Egg",
+      "description": "Buy one dozen of egg",
+      "dueDate": "2024-05-29",
+      "priority": "Low",
+      "isCompleted": false,
+      "id": 2
+    },
+    {
+      "title": "Pay wifi bill",
+      "description": "pay wifi bill to Mime internet",
+      "dueDate": "2024-05-18",
+      "priority": "High",
+      "isCompleted": false,
+      "id": 3
+    }
+  ];
+
   const [todos, setTodos] = useState(
     localStorage.getItem("todos")
       ? JSON.parse(localStorage.getItem("todos"))
-      : []
+      : seedData
   );
+  
+  // Initialize nextId based on existing todos
+  const [nextId, setNextId] = useState(() => {
+    const storedTodos = localStorage.getItem("todos")
+      ? JSON.parse(localStorage.getItem("todos"))
+      : seedData;
+    const maxId = storedTodos.length > 0 ? Math.max(...storedTodos.map(todo => todo.id)) : 0;
+    return maxId + 1;
+  });
+
   const [selectedTodo, setSelectedTodo] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  const [nextId, setNextId] = useState(1);
   const [alert, setAlert] = useState(null);
 
   useEffect(() => {
@@ -103,15 +139,13 @@ const App = () => {
             />
           </Col>
         </Row>
-        <Row>
-          <Button
-            variant="primary"
-            className="add-todo-btn mx-3"
-            onClick={handleNewTodo}
-          >
-            <BsPlus />
-          </Button>
-        </Row>
+        <Button
+          variant="primary"
+          className="add-todo-btn"
+          onClick={handleNewTodo}
+        >
+          <BsPlus />
+        </Button>
         <TodoForm
           show={showModal}
           onHide={handleCloseModal}
