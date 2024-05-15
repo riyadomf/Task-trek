@@ -97,7 +97,7 @@ const TodoForm = ({ show, onHide, onSubmit, todo, onEdit }) => {
             <Form.Control
               type="date"
               name="dueDate"
-              value={moment(formData.dueDate).format("YYYY-MM-DD")}
+              value={formData.dueDate}
               onChange={handleChange}
               required
             />

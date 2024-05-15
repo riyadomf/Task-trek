@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Card } from 'react-bootstrap';
 import { BsCheck2Circle, BsCheckCircleFill, BsPencilSquare, BsTrash } from 'react-icons/bs';
+import moment from 'moment';
 
 const TodoItem = ({ todo, onDelete, onEdit, onDone }) => {
   const { id, title, description, dueDate, priority, isCompleted } = todo;
@@ -10,7 +11,7 @@ const TodoItem = ({ todo, onDelete, onEdit, onDone }) => {
       <Card.Body>
         <Card.Title>{title}</Card.Title>
         <Card.Text>{description}</Card.Text>
-        <Card.Text>Due Date: {dueDate}</Card.Text>
+        <Card.Text>Due Date: {moment(dueDate).format("Do MMMM, YYYY")}</Card.Text>
         <Card.Text>Priority: {priority}</Card.Text>
         <div className="d-flex gap-2 justify-content-end align-items-center">
           <Button
