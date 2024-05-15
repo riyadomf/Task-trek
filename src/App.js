@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Button, Alert, Container, Row, Col, Navbar } from "react-bootstrap";
+import {
+  Button,
+  Alert,
+  Container,
+  Row,
+  Col,
+  Navbar,
+  Card,
+} from "react-bootstrap";
 import { BsPlus } from "react-icons/bs";
 import TodoList from "./components/TodoList";
 import TodoForm from "./components/TodoForm";
@@ -10,29 +18,29 @@ import "./App.css";
 const App = () => {
   const seedData = [
     {
-      "title": "Buy Green Tea",
-      "description": "Buy green tea from Shwapno",
-      "dueDate": "2024-05-25",
-      "priority": "Low",
-      "isCompleted": false,
-      "id": 1
+      title: "Buy Green Tea",
+      description: "Buy green tea from Shwapno",
+      dueDate: "2024-05-25",
+      priority: "Low",
+      isCompleted: false,
+      id: 1,
     },
     {
-      "title": "Buy Egg",
-      "description": "Buy one dozen of egg",
-      "dueDate": "2024-05-29",
-      "priority": "Low",
-      "isCompleted": false,
-      "id": 2
+      title: "Buy Egg",
+      description: "Buy one dozen of egg",
+      dueDate: "2024-05-29",
+      priority: "Low",
+      isCompleted: false,
+      id: 2,
     },
     {
-      "title": "Pay wifi bill",
-      "description": "pay wifi bill to Mime internet",
-      "dueDate": "2024-05-18",
-      "priority": "High",
-      "isCompleted": false,
-      "id": 3
-    }
+      title: "Pay wifi bill",
+      description: "pay wifi bill to Mime internet",
+      dueDate: "2024-05-18",
+      priority: "High",
+      isCompleted: false,
+      id: 3,
+    },
   ];
 
   const [todos, setTodos] = useState(
@@ -40,13 +48,15 @@ const App = () => {
       ? JSON.parse(localStorage.getItem("todos"))
       : seedData
   );
-  
-  // Initialize nextId based on existing todos
+
   const [nextId, setNextId] = useState(() => {
     const storedTodos = localStorage.getItem("todos")
       ? JSON.parse(localStorage.getItem("todos"))
       : seedData;
-    const maxId = storedTodos.length > 0 ? Math.max(...storedTodos.map(todo => todo.id)) : 0;
+    const maxId =
+      storedTodos.length > 0
+        ? Math.max(...storedTodos.map((todo) => todo.id))
+        : 0;
     return maxId + 1;
   });
 
@@ -62,7 +72,7 @@ const App = () => {
     if (alert) {
       const timer = setTimeout(() => {
         setAlert(null);
-      }, 2*1000); 
+      }, 3000);
       return () => clearTimeout(timer);
     }
   }, [alert]);
@@ -127,12 +137,30 @@ const App = () => {
     setShowModal(true);
   };
 
+  // Calculate the number of completed tasks
+  const completedTasks = todos.filter((todo) => todo.isCompleted).length;
+  const totalTasks = todos.length;
+
   return (
     <>
       <Navbar bg="dark" variant="dark">
         <Navbar.Brand href="#home">Task Trek</Navbar.Brand>
       </Navbar>
       <Container className="homepage">
+        <Row className="mt-3">
+          <Col>
+            <Card className="task-progress-card">
+              <Card.Body>
+                <Card.Title>Task Progress</Card.Title>
+                <Card.Text>
+                  {completedTasks > 0 && completedTasks === totalTasks
+                    ? "Congratulations! You have completed all the tasks"
+                    : `${completedTasks} of ${totalTasks} tasks completed`}
+                </Card.Text>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
         <Row>
           <Col>
             {alert && <Alert variant={alert.type}>{alert.message}</Alert>}

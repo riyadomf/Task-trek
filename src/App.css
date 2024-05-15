@@ -72,32 +72,37 @@
   padding: 0.3rem 0.6rem;
 }
 
+/* Success Button (Done) */
 .btn-success {
-  background-color: #4caf50; /* Green color for "Done" button */
-  border-color: #4caf50;
+  background-color: #31669a; /* Dodger blue color */
+  border-color: #285580; /* Darker blue for ambient */
 }
 
 .btn-success:hover {
-  background-color: #45a049; /* Darker green on hover */
+  background-color: #1c86ee; /* Slightly darker blue on hover */
 }
 
+/* Warning Button (Edit) */
 .btn-warning {
-  background-color: #ffc107; /* Yellow color for "Edit" button */
-  border-color: #ffc107;
+  background-color: #128781; /* Light sea green color */
+  border-color: #0f6e6a; /* Darker sea green for ambient */
 }
 
 .btn-warning:hover {
-  background-color: #e0a800; /* Darker yellow on hover */
+  background-color: #1e9e98; /* Darker sea green on hover */
 }
 
+/* Danger Button (Delete) */
 .btn-danger {
-  background-color: #f44336; /* Red color for "Delete" button */
-  border-color: #f44336;
+  background-color: #ce2001; /* Tomato color */
+  border-color: #a81b00; /* Darker tomato for ambient */
 }
 
 .btn-danger:hover {
-  background-color: #d32f2f; /* Darker red on hover */
+  background-color: #ee5a39; /* Darker tomato on hover */
 }
+
+
 
 .todo-item .card-text {
   font-size: 1rem; /* Adjust the font size as needed */
@@ -214,4 +219,30 @@
   color: #c0c2cf; /* Example text color */
   text-transform: uppercase; /* Example text transform */
   margin-left: 200px; /* Adjust the value as needed */
+}
+
+
+/* Task progress card */
+
+.task-progress-card {
+  background-color: #ced4db; /* Light grey background */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  margin-bottom: 20px; /* Space below the card */
+  transition: transform 0.3s; /* Smooth transition on hover */
+}
+
+.task-progress-card:hover {
+  transform: scale(1.05); /* Slightly enlarge the card on hover */
+}
+
+.task-progress-card .card-title {
+  color: #06203d; /* Primary color for the title */
+  font-weight: bold;
+  font-size: 1.4rem;
+}
+
+.task-progress-card .card-text {
+  color: #495057; /* Dark grey text */
+  font-size: 1rem;
 }
