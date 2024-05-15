@@ -58,6 +58,15 @@ const App = () => {
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
 
+  useEffect(() => {
+    if (alert) {
+      const timer = setTimeout(() => {
+        setAlert(null);
+      }, 2*1000); 
+      return () => clearTimeout(timer);
+    }
+  }, [alert]);
+
   const handleNewTodo = () => {
     setSelectedTodo(null);
     setShowModal(true);
